@@ -55,7 +55,7 @@ public class CategoryRestController {
             categoryResponseList.add(mapper.map(categoryDto, CategoryResponse.class));
         }
 
-        response.setMessage("You have found all categories successfully");
+        response.setMessage(SuccessMessage.FOUND_ALL.value());
         response.setCode(HttpStatus.OK.value());
         response.setData(categoryResponseList);
         response.setTime(new Timestamp(System.currentTimeMillis()));

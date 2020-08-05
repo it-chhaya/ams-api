@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class ImageResponse implements Serializable {
     
-    /**
-     *
-     */
     private static final long serialVersionUID = 2208765626468767570L;
     private String name;
     private String uri;
