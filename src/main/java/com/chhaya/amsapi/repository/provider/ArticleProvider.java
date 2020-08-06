@@ -16,4 +16,12 @@ public class ArticleProvider {
         }}.toString();
     }
 
+    public String selectSql() {
+        return new SQL(){{
+            SELECT("*");
+            FROM("articles");
+            WHERE("status = true");
+        }}.toString();
+    }
+
 }

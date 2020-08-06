@@ -1,5 +1,6 @@
 package com.chhaya.amsapi.rest.controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.chhaya.amsapi.constant.ApiConstants;
@@ -40,7 +41,12 @@ public class ArticleRestController {
 
     
     @GetMapping(ApiConstants.ARTICLES_URL)
-    public String getAllArticles() {
+    public ResponseEntity<ApiResponse<List<ArticleResponse>>> getAllArticles() {
+
+        ApiResponse<List<ArticleResponse>> response = new ApiResponse<>();
+
+        List<ArticleDto> articleDtoList = articleServiceImp.findAll();
+
         return "All articles";
     }
 
