@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 public class AppException {
 
     @ExceptionHandler(value = ResponseStatusException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     ResponseEntity<ErrorResponse> handle(ResponseStatusException e) {
 
         ErrorResponse response = new ErrorResponse();

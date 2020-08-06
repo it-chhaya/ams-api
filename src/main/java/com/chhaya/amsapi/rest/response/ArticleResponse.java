@@ -17,7 +17,7 @@ public class ArticleResponse implements Serializable {
     private String thumbnail;
     private String author;
     private Date publishedDate;
-    private CategoryDto category;
+    private CategoryResponse category;
 
 
     public ArticleResponse() {
@@ -72,11 +72,11 @@ public class ArticleResponse implements Serializable {
         this.publishedDate = publishedDate;
     }
 
-    public CategoryDto getCategory() {
+    public CategoryResponse getCategory() {
         return this.category;
     }
 
-    public void setCategory(CategoryDto category) {
+    public void setCategory(CategoryResponse category) {
         this.category = category;
     }
 

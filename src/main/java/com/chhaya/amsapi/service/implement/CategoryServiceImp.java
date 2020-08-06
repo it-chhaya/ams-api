@@ -27,6 +27,11 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
+    public List<CategoryDto> findRelatedCategories() {
+        return categoryRepository.findRelatedCategories();
+    }
+
+    @Override
     public CategoryDto findOne(int id) {
         return categoryRepository.findOne(id);
     }

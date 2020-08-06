@@ -38,6 +38,39 @@ public class CategoryRestController {
         this.mapper = mapper;
     }
 
+    @GetMapping(ApiConstants.RELATED_CATEGORIES_URL)
+    ResponseEntity<ApiResponse<List<CategoryResponse>>> getRelatedCategories() {
+
+        ApiResponse<List<CategoryResponse>> response = new ApiResponse<>();
+
+        List<CategoryDto> relatedCategoryDtoList = categoryServiceImp.findRelatedCategories();
+
+        List<CategoryResponse> relatedCategoryResponseList = new ArrayList<>();
+
+        for (CategoryDto relatedCategoryDto : relatedCategoryDtoList) {
+            relatedCategoryResponseList.add(mapper.map(relatedCategoryDto, CategoryResponse.class));
+        }
+
+        if (relatedCategoryDtoList.size() == 0) {
+
+            response.setResponse(SuccessMessage.HAS_NO_RECORD.value(),
+                    false,
+                    HttpStatus.NO_CONTENT.value(),
+                    null);
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+
+        } else {
+
+            response.setResponse(SuccessMessage.FOUND_ALL.value(),
+                    true,
+                    HttpStatus.OK.value(),
+                    relatedCategoryResponseList);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+
+        }
+
+    }
+
     @Operation(summary = "Find all categories",
         description = "Find all categories from database")
     @GetMapping(ApiConstants.CATEGORIES_URL)
@@ -61,6 +94,7 @@ public class CategoryRestController {
         response.setTime(new Timestamp(System.currentTimeMillis()));
 
         return ResponseEntity.ok(response);
+
     }
 
     @GetMapping(ApiConstants.CATEGORIES_URL + "/{id}")

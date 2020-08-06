@@ -27,4 +27,7 @@ public interface CategoryRepository {
     @UpdateProvider(type = CategoryProvider.class, method = "updateSql")
     void update(CategoryDto categoryDto);
 
+    @SelectProvider(type = CategoryProvider.class, method = "findRelatedCategoriesSql")
+    List<CategoryDto> findRelatedCategories();
+
 }

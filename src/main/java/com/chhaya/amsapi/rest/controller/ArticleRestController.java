@@ -1,5 +1,6 @@
 package com.chhaya.amsapi.rest.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,6 +40,62 @@ public class ArticleRestController {
         this.articleServiceImp = articleServiceImp;
     }
 
+    @GetMapping(ApiConstants.POPULAR_ARTICLES_URL)
+    public ResponseEntity<ApiResponse<List<ArticleResponse>>> getPopularArticles() {
+
+        ApiResponse<List<ArticleResponse>> response = new ApiResponse<>();
+
+        List<ArticleDto> popularArticleDtoList = articleServiceImp.findRecentArticles();
+
+        List<ArticleResponse> popularArticleResponseList = new ArrayList<>();
+
+        for (ArticleDto popularArticleDto : popularArticleDtoList)
+            popularArticleResponseList.add(mapper.map(popularArticleDto, ArticleResponse.class));
+
+        if (popularArticleResponseList.size() == 0) {
+            response.setResponse(SuccessMessage.HAS_NO_RECORD.value(),
+                    false,
+                    HttpStatus.NO_CONTENT.value(),
+                    null);
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+        } else {
+            response.setResponse(SuccessMessage.FOUND_ALL.value(),
+                    true,
+                    HttpStatus.OK.value(),
+                    popularArticleResponseList);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+    }
+
+    @GetMapping(ApiConstants.RECENT_ARTICLES_URL)
+    public ResponseEntity<ApiResponse<List<ArticleResponse>>> getRecentArticles() {
+
+        ApiResponse<List<ArticleResponse>> response = new ApiResponse<>();
+
+        List<ArticleDto> recentArticleDtoList = articleServiceImp.findRecentArticles();
+
+        List<ArticleResponse> recentArticleResponseList = new ArrayList<>();
+
+        for (ArticleDto recentArticleDto : recentArticleDtoList)
+            recentArticleResponseList.add(mapper.map(recentArticleDto, ArticleResponse.class));
+
+        if (recentArticleResponseList.size() == 0) {
+            response.setResponse(SuccessMessage.HAS_NO_RECORD.value(),
+                    false,
+                    HttpStatus.NO_CONTENT.value(),
+                    null);
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+        } else {
+            response.setResponse(SuccessMessage.FOUND_ALL.value(),
+                    true,
+                    HttpStatus.OK.value(),
+                    recentArticleResponseList);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+    }
+
     
     @GetMapping(ApiConstants.ARTICLES_URL)
     public ResponseEntity<ApiResponse<List<ArticleResponse>>> getAllArticles() {
@@ -47,7 +104,26 @@ public class ArticleRestController {
 
         List<ArticleDto> articleDtoList = articleServiceImp.findAll();
 
-        return "All articles";
+        List<ArticleResponse> articleResponseList = new ArrayList<>();
+
+        for (ArticleDto articleDto : articleDtoList) {
+            articleResponseList.add(mapper.map(articleDto, ArticleResponse.class));
+        }
+
+        if (articleResponseList.size() == 0) {
+            response.setResponse(SuccessMessage.HAS_NO_RECORD.value(),
+                    false,
+                    HttpStatus.NO_CONTENT.value(),
+                    null);
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+        } else {
+            response.setResponse(SuccessMessage.FOUND_ALL.value(),
+                    true,
+                    HttpStatus.OK.value(),
+                    articleResponseList);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
     }
 
     @PostMapping(ApiConstants.ARTICLES_URL)

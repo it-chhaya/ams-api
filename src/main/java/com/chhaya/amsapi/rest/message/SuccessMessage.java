@@ -6,7 +6,8 @@ public enum SuccessMessage {
     FOUND_ONE("A record has found successfully"),
     IS_SAVED("Record has been saved successfully"),
     IS_UPDATED("Record has been updated successfully"),
-    UPLOADED_IMAGE("Image has been uploaded successfully");
+    UPLOADED_IMAGE("Image has been uploaded successfully"),
+    HAS_NO_RECORD("Your database has no records");
 
     private String message;
 

@@ -27,4 +27,14 @@ public class CategoryProvider {
         }}.toString();
     }
 
+    public String findRelatedCategoriesSql() {
+        return new SQL(){{
+            SELECT("*");
+            FROM("categories");
+            WHERE("status = true");
+            ORDER_BY("RANDOM()");
+            LIMIT(5);
+        }}.toString();
+    }
+
 }

@@ -8,6 +8,8 @@ public interface CategoryService {
 
     List<CategoryDto> findAll();
 
+    List<CategoryDto> findRelatedCategories();
+
     CategoryDto findOne(int id);
 
     CategoryDto save(CategoryDto categoryDto);
