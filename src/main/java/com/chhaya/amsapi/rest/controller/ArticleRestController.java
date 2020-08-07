@@ -45,7 +45,7 @@ public class ArticleRestController {
 
         ApiResponse<List<ArticleResponse>> response = new ApiResponse<>();
 
-        List<ArticleDto> popularArticleDtoList = articleServiceImp.findRecentArticles();
+        List<ArticleDto> popularArticleDtoList = articleServiceImp.findPopularArticles();
 
         List<ArticleResponse> popularArticleResponseList = new ArrayList<>();
 

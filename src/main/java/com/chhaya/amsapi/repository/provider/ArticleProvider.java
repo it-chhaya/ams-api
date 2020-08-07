@@ -48,7 +48,7 @@ public class ArticleProvider {
         return new SQL() {{
             SELECT("*");
             FROM("articles");
-            WHERE("status = true", "category_id IN {3,5}");
+            WHERE("status = true", "category_id IN (3,5)");
             ORDER_BY("id DESC");
             LIMIT(8);
         }}.toString();
