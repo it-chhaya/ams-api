@@ -24,32 +24,76 @@ public class ArticleServiceImp implements ArticleService {
     
     @Override
     public ArticleDto save(ArticleDto articleDto) {
-        
         try {
-
             articleRepository.save(articleDto);
-
             return articleDto;
-
         } catch(Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getCause().getMessage());
         }
+    }
 
+    @Override
+    public ArticleDto update(ArticleDto articleDto) {
+        try {
+            articleRepository.update(articleDto);
+            return articleRepository.selectByArticleId(articleDto.getArticleId());
+        } catch(Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getCause().getMessage());
+        }
     }
 
     @Override
     public List<ArticleDto> findAll() {
-        return articleRepository.select();
+        try {
+            return articleRepository.select();
+        } catch(Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getCause().getMessage());
+        }
     }
 
     @Override
     public List<ArticleDto> findRecentArticles() {
-        return articleRepository.selectRecentArticles();
+        try {
+            return articleRepository.selectRecentArticles();
+        } catch(Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getCause().getMessage());
+        }
     }
 
     @Override
     public List<ArticleDto> findPopularArticles() {
-        return articleRepository.selectPopularArticles();
+        try {
+            return articleRepository.selectPopularArticles();
+        } catch(Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getCause().getMessage());
+        }
+    }
+
+    @Override
+    public ArticleDto findArticle(String articleId) {
+        try {
+            ArticleDto article = articleRepository.selectByArticleId(articleId);
+            if (article == null) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "The article hasn't been found in the database");
+            }
+            return article;
+        } catch(Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getCause().getMessage());
+        }
+    }
+
+    @Override
+    public ArticleDto delete(String articleId) {
+        try {
+            ArticleDto article = articleRepository.selectByArticleId(articleId);
+            if (article == null) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "The article hasn't been found in the database");
+            }
+            articleRepository.delete(articleId);
+            return article;
+        } catch(Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getCause().getMessage());
+        }
     }
 
 }

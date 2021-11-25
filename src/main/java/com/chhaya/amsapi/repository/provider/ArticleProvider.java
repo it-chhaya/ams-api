@@ -12,7 +12,20 @@ public class ArticleProvider {
             VALUES("description", "#{description}");
             VALUES("thumbnail", "#{thumbnail}");
             VALUES("author", "#{author}");
+            VALUES("published_date", "now()");
             VALUES("category_id", "#{category.id}");
+        }}.toString();
+    }
+
+    public String updateSql() {
+        return new SQL() {{
+            UPDATE("articles");
+            SET("title = #{title}");
+            SET("description = #{description}");
+            SET("thumbnail = #{thumbnail}");
+            SET("author = #{author}");
+            SET("category_id = #{category.id}");
+            WHERE("article_id = #{articleId}");
         }}.toString();
     }
 

@@ -8,10 +8,16 @@ public interface ArticleService {
     
     ArticleDto save(ArticleDto articleDto);
 
+    ArticleDto update(ArticleDto articleDto);
+
     List<ArticleDto> findAll();
 
     List<ArticleDto> findRecentArticles();
 
     List<ArticleDto> findPopularArticles();
+
+    ArticleDto findArticle(String articleId);
+
+    ArticleDto delete(String articleId);
 
 }

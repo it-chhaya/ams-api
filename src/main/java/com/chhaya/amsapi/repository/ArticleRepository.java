@@ -4,7 +4,6 @@ import com.chhaya.amsapi.repository.dto.ArticleDto;
 import com.chhaya.amsapi.repository.dto.CategoryDto;
 import com.chhaya.amsapi.repository.provider.ArticleProvider;
 
-import com.chhaya.amsapi.repository.provider.CategoryProvider;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +15,9 @@ public interface ArticleRepository {
     @InsertProvider(type = ArticleProvider.class, method = "saveSql")
     @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     void save(ArticleDto articleDto);
+
+    @UpdateProvider(type = ArticleProvider.class, method = "updateSql")
+    void update(ArticleDto articleDto);
 
     @SelectProvider(type = ArticleProvider.class, method = "selectSql")
     @Results(id = "articleResults", value = {
@@ -35,5 +37,12 @@ public interface ArticleRepository {
     @SelectProvider(type = ArticleProvider.class, method = "selectPopularArticlesSql")
     @ResultMap(value = "articleResults")
     List<ArticleDto> selectPopularArticles();
+
+    @Select("SELECT * FROM articles WHERE article_id = #{articleId}")
+    @ResultMap(value = "articleResults")
+    ArticleDto selectByArticleId(String articleId);
+
+    @Delete("DELETE FROM articles WHERE article_id = #{articleId}")
+    void delete(String articleId);
 
 }

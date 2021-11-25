@@ -4,11 +4,15 @@ import com.chhaya.amsapi.rest.response.ErrorResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.net.http.HttpHeaders;
+import java.nio.file.AccessDeniedException;
 import java.sql.Timestamp;
 
 @RestControllerAdvice
